@@ -23,14 +23,14 @@ counties_pm_exact <- counties |>
 
 
 # ---- Plot ------------------------------------------------------
-quartz()
-print(
-  ggplot(counties_pm_exact) +
-    geom_sf(aes(fill = mean_pm25_exact), color = NA) +
-    scale_fill_viridis_c(name = "PM2.5", option = "magma") +
-    labs(title = "Mean PM2.5 by county (area-weighted)") +
-    theme_void()
-)
+p <- ggplot(counties_pm_exact) +
+  geom_sf(aes(fill = mean_pm25_exact), color = NA) +
+  scale_fill_viridis_c(name = "PM2.5", option = "magma") +
+  labs(title = "Mean PM2.5 by county (area-weighted)") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/mean_pm25.png", plot = p, width = 10, height = 6, dpi = 150)
 
 
 # =============================================================================
@@ -70,16 +70,14 @@ counties_max_pm_exact <- counties |>
     max_above_9 = max_pm25_exact > 9
   )
 
-quartz()
-print(
-  ggplot(counties_max_pm_exact) +
-    geom_sf(aes(fill = max_pm25_exact), color = NA) +
-    scale_fill_viridis_c(
-      name = "PM2.5", option = "magma"
-    ) +
-    labs(title = "exact_extract (area-weighted)") +
-    theme_void()
-)
+p <- ggplot(counties_max_pm_exact) +
+  geom_sf(aes(fill = max_pm25_exact), color = NA) +
+  scale_fill_viridis_c(name = "PM2.5", option = "magma") +
+  labs(title = "Max PM2.5 by county (area-weighted)") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/max_pm25.png", plot = p, width = 10, height = 6, dpi = 150)
 # 2)
 
 counties_share <- counties |>
@@ -93,39 +91,45 @@ counties_share <- counties |>
     )
   )
 
-ggplot(counties_share) +
+p <- ggplot(counties_share) +
   geom_sf(aes(fill = share_above_9), color = NA) +
   scale_fill_viridis_c(name = "Share > 9", option = "magma") +
+  labs(title = "Share of county area with PM2.5 > 9 ug/m^3") +
   theme_void()
+
+print(p)
+ggsave("outputs/maps/share_above_9.png", plot = p, width = 10, height = 6, dpi = 150)
 
 # 3)
 
-print(
-  ggplot(counties_max_pm_exact) +
-    geom_sf(aes(fill = max_above_9), color = "white", linewidth = 0.1) +
-    scale_fill_manual(
-      name   = "Max > 9?",
-      values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
-    ) +
-    labs(title = "Counties whose maximum PM2.5 exceeds 9 ug/m^3") +
-    theme_void()
-)
+p <- ggplot(counties_max_pm_exact) +
+  geom_sf(aes(fill = max_above_9), color = "white", linewidth = 0.1) +
+  scale_fill_manual(
+    name   = "Max > 9?",
+    values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
+  ) +
+  labs(title = "Counties whose maximum PM2.5 exceeds 9 ug/m^3") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/max_above_9.png", plot = p, width = 10, height = 6, dpi = 150)
 
 counties_pm_exact <- counties_pm_exact |>
   mutate(
     mean_above_9 = mean_pm25_exact > 9
   )
 
-print(
-  ggplot(counties_pm_exact) +
-    geom_sf(aes(fill = mean_above_9), color = "white", linewidth = 0.1) +
-    scale_fill_manual(
-      name   = "Mean > 9?",
-      values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
-    ) +
-    labs(title = "Counties whose maximum PM2.5 exceeds 9 ug/m^3") +
-    theme_void()
-)
+p <- ggplot(counties_pm_exact) +
+  geom_sf(aes(fill = mean_above_9), color = "white", linewidth = 0.1) +
+  scale_fill_manual(
+    name   = "Mean > 9?",
+    values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
+  ) +
+  labs(title = "Counties whose mean PM2.5 exceeds 9 ug/m^3") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/mean_above_9.png", plot = p, width = 10, height = 6, dpi = 150)
 
 counties_pm_exact <- counties_pm_exact |>
   mutate(
@@ -133,16 +137,17 @@ counties_pm_exact <- counties_pm_exact |>
   )
 
 
-print(
-  ggplot(counties_pm_exact) +
-    geom_sf(aes(fill = mean_above_12), color = "white", linewidth = 0.1) +
-    scale_fill_manual(
-      name   = "Mean > 12?",
-      values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
-    ) +
-    labs(title = "Counties whose maximum PM2.5 exceeds 12 ug/m^3") +
-    theme_void()
-)
+p <- ggplot(counties_pm_exact) +
+  geom_sf(aes(fill = mean_above_12), color = "white", linewidth = 0.1) +
+  scale_fill_manual(
+    name   = "Mean > 12?",
+    values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
+  ) +
+  labs(title = "Counties whose mean PM2.5 exceeds 12 ug/m^3") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/mean_above_12.png", plot = p, width = 10, height = 6, dpi = 150)
 
 
 # =============================================================================

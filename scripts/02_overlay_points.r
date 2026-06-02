@@ -36,15 +36,15 @@ cat("Sum of facilities-per-county:", sum(counties_pip$n_facilities), "\n")
 # ---- Plot -------------------------------------------------------------------
 # Wrapped in print() so the map appears whether you run the script line-by-line
 # OR click "Source" (Source turns off auto-printing of the plot object).
-quartz()
-print(
-  ggplot(counties_pip) +
-    geom_sf(aes(fill = n_facilities), color = "white", linewidth = 0.1) +
-    scale_fill_viridis_c(name = "Facilities", option = "magma", trans = "sqrt") +
-    labs(title = "Powerplant facilities per county") +
-    theme_void() +
-    theme(legend.position = "right")
-)
+p <- ggplot(counties_pip) +
+  geom_sf(aes(fill = n_facilities), color = "white", linewidth = 0.1) +
+  scale_fill_viridis_c(name = "Facilities", option = "magma", trans = "sqrt") +
+  labs(title = "Powerplant facilities per county") +
+  theme_void() +
+  theme(legend.position = "right")
+
+print(p)
+ggsave("outputs/maps/facilities_per_county.png", plot = p, width = 10, height = 6, dpi = 150)
 
 
 # =============================================================================
@@ -67,11 +67,12 @@ counties_density_pip <- counties_pip |>
     facility_density = n_facilities / area_km2 * 100
   )
 
-print(
-  ggplot(counties_density_pip) +
-    geom_sf(aes(fill = facility_density), color = "white", linewidth = 0.1) +
-    scale_fill_viridis_c(name = "Facilities per 100km2", option = "magma", trans = "sqrt") +
-    labs(title = "Powerplant facilities per 100km2") +
-    theme_void() +
-    theme(legend.position = "right")
-)
+p <- ggplot(counties_density_pip) +
+  geom_sf(aes(fill = facility_density), color = "white", linewidth = 0.1) +
+  scale_fill_viridis_c(name = "Facilities per 100km2", option = "magma", trans = "sqrt") +
+  labs(title = "Powerplant facilities per 100km2") +
+  theme_void() +
+  theme(legend.position = "right")
+
+print(p)
+ggsave("outputs/maps/facility_density_per_county.png", plot = p, width = 10, height = 6, dpi = 150)

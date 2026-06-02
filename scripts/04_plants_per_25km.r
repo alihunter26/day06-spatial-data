@@ -38,18 +38,18 @@ cat(
 # ---- Plot -------------------------------------------------------------------
 # Wrapped in print() so the map appears whether you run the script line-by-line
 # OR click "Source" (Source turns off auto-printing of the plot object).
-quartz()
-print(
-  ggplot(counties_near) +
-    geom_sf(aes(fill = near_plants), color = "white", linewidth = 0.1) +
-    geom_sf(data = plants, color = "black", size = 0.4) +
-    scale_fill_manual(
-      name   = "Near powerplants?",
-      values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
-    ) +
-    labs(title = "Counties within 25 km of any powerplant") +
-    theme_void()
-)
+p <- ggplot(counties_near) +
+  geom_sf(aes(fill = near_plants), color = "white", linewidth = 0.1) +
+  geom_sf(data = plants, color = "black", size = 0.4) +
+  scale_fill_manual(
+    name   = "Near powerplants?",
+    values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
+  ) +
+  labs(title = "Counties within 25 km of any powerplant") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/counties_near_25km.png", plot = p, width = 10, height = 6, dpi = 150)
 
 
 # =============================================================================
@@ -85,25 +85,25 @@ cat(
 )
 
 # ---- Plot
-quartz()
-print(
-  ggplot(counties_near_1km) +
-    geom_sf(aes(fill = near_plants), color = "white", linewidth = 0.1) +
-    geom_sf(data = plants, color = "black", size = 0.4) +
-    scale_fill_manual(
-      name   = "Near powerplants?",
-      values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
-    ) +
-    labs(title = "Counties within 1 km of any powerplant") +
-    theme_void()
-)
+p <- ggplot(counties_near_1km) +
+  geom_sf(aes(fill = near_plants), color = "white", linewidth = 0.1) +
+  geom_sf(data = plants, color = "black", size = 0.4) +
+  scale_fill_manual(
+    name   = "Near powerplants?",
+    values = c(`TRUE` = "#E57200", `FALSE` = "#E5E5E5")
+  ) +
+  labs(title = "Counties within 1 km of any powerplant") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/counties_near_1km.png", plot = p, width = 10, height = 6, dpi = 150)
 
 # 2
-quartz()
-print(
-  ggplot(counties_near_1km) +
-    geom_sf(aes(fill = n_facilities_within_1km), color = "white", linewidth = 0.1) +
-    scale_fill_viridis_c(name = "Facilities within 1km", option = "magma", trans = "sqrt") +
-    labs(title = "Count of powerplants within 1 km by county") +
-    theme_void()
-)
+p <- ggplot(counties_near_1km) +
+  geom_sf(aes(fill = n_facilities_within_1km), color = "white", linewidth = 0.1) +
+  scale_fill_viridis_c(name = "Facilities within 1km", option = "magma", trans = "sqrt") +
+  labs(title = "Count of powerplants within 1 km by county") +
+  theme_void()
+
+print(p)
+ggsave("outputs/maps/facility_count_1km.png", plot = p, width = 10, height = 6, dpi = 150)
