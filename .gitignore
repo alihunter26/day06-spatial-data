@@ -1,0 +1,10 @@
+# data files (add via Git LFS or download separately)
+data/
+
+# Python
+__pycache__/
+*.pyc
+.env
+
+# OS
+.DS_Store
